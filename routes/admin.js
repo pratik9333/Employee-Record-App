@@ -6,7 +6,7 @@ const {
 } = require("../controllers/admin");
 
 //get List Of All Companies
-router.route("/companies").get(isLoggedIn, getListOfAllCompanies);
+router.route("/companies/all").get(isLoggedIn, getListOfAllCompanies);
 
 //view Company
 router.route("/company/update/status").put(isLoggedIn, updateCompanyStatus);

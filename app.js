@@ -24,8 +24,13 @@ app.use(
 //import all routes here
 const authUser = require("./routes/authUser");
 const employee = require("./routes/employee");
+const user = require("./routes/user");
+const admin = require("./routes/admin");
+
 //router middleware
 app.use("/api/v1/auth", authUser);
 app.use("/api/v1/employee", employee);
+app.use("/api/v1", user);
+app.use("/api/v1/", admin);
 
 module.exports = app;
