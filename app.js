@@ -21,6 +21,10 @@ app.use(
   })
 );
 
+app.get("/", (req, res) => {
+  res.status(200).json({ message: "Greetings from our api" });
+});
+
 //import all routes here
 const authUser = require("./routes/authUser");
 const employee = require("./routes/employee");
