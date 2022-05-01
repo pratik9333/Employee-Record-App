@@ -9,4 +9,4 @@ const hasLength = (string, min, max) => {
   return true;
 };
 
-export default hasLength;
+module.exports = hasLength;

@@ -1,5 +1,7 @@
-export default function httpError(message) {
+const httpError = (message) => {
   return {
     error: message,
   };
-}
+};
+
+module.exports = httpError;

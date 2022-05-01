@@ -5,4 +5,4 @@ const isEmpty = (string) => {
   return false;
 };
 
-export default isEmpty;
+module.exports = isEmpty;
