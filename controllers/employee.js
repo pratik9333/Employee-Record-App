@@ -12,30 +12,23 @@ exports.addCompany = async (req, res) => {
     }
 
     const getExistingCompany = await Company.find({ name });
-    const user = await User.findById(req.user._id);
 
     if (getExistingCompany.length > 0) {
       throw httpError("Company with given name already exists");
     }
 
     if (req.files) {
-      cloudinary.v2.uploader.upload(
-        file.tempFilePath,
-        {
-          folder: "users",
-          width: 150,
-          crop: "scale",
-        },
-        async (err, response) => {
-          if (err) {
-            throw httpError("Photo failed to upload");
-          }
-          req.body.photo = {
-            id: response.public_id,
-            url: response.secure_url,
-          };
-        }
-      );
+      const file = req.files.photo;
+      //uploading file to cloudinary
+      const response = await cloudinary.v2.uploader.upload(file.tempFilePath, {
+        folder: "company",
+        width: 150,
+        crop: "scale",
+      });
+      req.body.photo = {
+        id: response.public_id,
+        url: response.secure_url,
+      };
     }
 
     req.body.listOfEmployees = [
@@ -46,6 +39,7 @@ exports.addCompany = async (req, res) => {
         endDate: null,
       },
     ];
+    req.body.lastUpdatedBy = req.user._id;
 
     await Company.create(req.body);
 
@@ -82,7 +76,6 @@ exports.updateCompanyDetails = async (req, res) => {
       const imageId = existingCompany.photo.id;
 
       if (existingCompany.photo.id) {
-        console.log(1);
         //delete photo on cloudinary
         await cloudinary.v2.uploader.destroy(imageId);
       }
@@ -100,6 +93,8 @@ exports.updateCompanyDetails = async (req, res) => {
       };
     }
 
+    req.body.lastUpdatedBy = req.user._id;
+
     await Company.findByIdAndUpdate(existingCompany._id, req.body);
 
     return res.status(200).json({
@@ -115,6 +110,7 @@ exports.updateCompanyDetails = async (req, res) => {
 
 exports.leaveCompany = async (req, res) => {
   try {
+    let flag = 0;
     if (!req.body.companyId) {
       throw httpError("Please provide company ID");
     }
@@ -129,15 +125,22 @@ exports.leaveCompany = async (req, res) => {
 
     for (let user of existingCompany.listOfEmployees) {
       if (user.userId.toString() === req.user._id.toString()) {
-        user.status = "Worked";
+        if (user.status === "worked") {
+          throw httpError(`You already leaved ${existingCompany.name}`);
+        }
+        user.status = "worked";
         user.endDate = new Date();
+        flag = 1;
         break;
       }
     }
 
+    if (flag == 0)
+      throw httpError(`You do not work in ${existingCompany.name}`);
+
     for (let company of user.companies) {
-      if (company._id.toString() === existingCompany._id.toString()) {
-        company.status = "Worked";
+      if (company.companyId.toString() === existingCompany._id.toString()) {
+        company.status = "worked";
         company.endDate = new Date();
         break;
       }
@@ -151,6 +154,7 @@ exports.leaveCompany = async (req, res) => {
       message: `${user.name} has successfully leaved ${existingCompany.name}!`,
     });
   } catch (error) {
+    console.log(error);
     if (error.error) return res.send(error);
     return res.send(httpError("Failed to leave company, please try again"));
   }

@@ -1,4 +1,3 @@
-const Auth = require("../models/auth");
 const httpError = require("../utils/functions/httpError");
 const User = require("../models/user");
 const Company = require("../models/company");
@@ -59,11 +58,18 @@ exports.updateCompanyStatus = async (req, res) => {
     let user = existingCompany.listOfEmployees[0].userId;
 
     user = await User.findById(user);
-    console.log(user);
+
+    user.companies.push({
+      companyId: existingCompany._id,
+      status: "working",
+      startDate: new Date(),
+      endDate: null,
+    });
 
     existingCompany.verified = true;
 
     await existingCompany.save();
+    await user.save();
 
     const subject = `Regarding company verification status`;
     const mailBody = `<p>Hello ${user.name}, verification status for registering company <b>${existingCompany.name}</b> has been verified successfully and has been listed in website.</p>`;
