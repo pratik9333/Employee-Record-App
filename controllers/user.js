@@ -17,7 +17,7 @@ exports.getListOfCompanies = async (req, res) => {
 
     let Companies = await companyObj.base;
 
-    let filteredCompanies = Company.length;
+    let filteredCompanies = Companies.length;
 
     res.status(200).json({
       success: true,

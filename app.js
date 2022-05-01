@@ -31,6 +31,6 @@ const admin = require("./routes/admin");
 app.use("/api/v1/auth", authUser);
 app.use("/api/v1/employee", employee);
 app.use("/api/v1", user);
-app.use("/api/v1/", admin);
+app.use("/api/v1", admin);
 
 module.exports = app;

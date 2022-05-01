@@ -5,13 +5,14 @@ exports.sendMail = (receiver, mailbody, subject) => {
     host: "smtp.gmail.com",
     port: 587,
     auth: {
-      user: "pratikaswani9333@gmail.com",
+      user: "konarkdossiers@gmail.com",
       pass: process.env.MAIL_APP_PASSWORD,
     },
+    secure: false,
   });
   transporter
     .sendMail({
-      from: '"Employee Records App pratikaswani9333@gmail.com', // sender address
+      from: '"Employee Records App konarkdossiers@gmail.com', // sender address
       to: receiver, // list of receivers
       subject: subject, // Subject line
       html: mailbody, // html body

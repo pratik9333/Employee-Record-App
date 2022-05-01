@@ -38,7 +38,7 @@ exports.getListOfAllCompanies = async (req, res) => {
   }
 };
 
-exports.updateCompanyStatus = async () => {
+exports.updateCompanyStatus = async (req, res) => {
   try {
     const { companyId } = req.body;
 
@@ -52,9 +52,14 @@ exports.updateCompanyStatus = async () => {
 
     const existingCompany = await Company.findById(req.body.companyId);
 
+    if (!existingCompany) {
+      throw httpError("Company ID is invalid or company does not exist");
+    }
+
     let user = existingCompany.listOfEmployees[0].userId;
 
     user = await User.findById(user);
+    console.log(user);
 
     existingCompany.verified = true;
 
@@ -70,7 +75,8 @@ exports.updateCompanyStatus = async () => {
       message: "Company has been verified successfully",
     });
   } catch (error) {
+    console.log(error);
     if (error.error) return res.send(error);
-    return res.send(httpError("Cannot able to fetch list of companies"));
+    return res.send(httpError("Cannot able to verify status"));
   }
 };
