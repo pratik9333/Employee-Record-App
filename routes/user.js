@@ -1,6 +1,6 @@
 const router = require("express").Router();
 
-const { getListOfCompanies, viewCompany } = require("../controllers/employee");
+const { getListOfCompanies, viewCompany } = require("../controllers/user");
 
 //get List Of Companies
 router.route("/companies").get(getListOfCompanies);

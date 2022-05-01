@@ -35,6 +35,16 @@ const companySchema = new mongoose.Schema({
         type: mongoose.Schema.ObjectId,
         ref: "User",
       },
+      status: {
+        type: String,
+        enum: ["working", "worked"],
+      },
+      startDate: {
+        type: Date,
+      },
+      endDate: {
+        type: Date,
+      },
     },
   ],
   photo: {

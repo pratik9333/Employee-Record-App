@@ -7,7 +7,7 @@ exports.addCompany = async (req, res) => {
   try {
     const { name, email, contactNo, location, shortSummary } = req.body;
 
-    if (!name || !email || !contactNo || !location || !shortSummary || !photo) {
+    if (!name || !email || !contactNo || !location || !shortSummary) {
       throw httpError("Please provide all required details for registration");
     }
 
@@ -38,7 +38,14 @@ exports.addCompany = async (req, res) => {
       );
     }
 
-    req.body.listOfEmployees.push({ userId: user._id });
+    req.body.listOfEmployees = [
+      {
+        userId: req.user._id,
+        status: "working",
+        startDate: new Date(),
+        endDate: null,
+      },
+    ];
 
     await Company.create(req.body);
 
@@ -48,6 +55,7 @@ exports.addCompany = async (req, res) => {
         "Company will be registered after successfull verification and will be notified via mail",
     });
   } catch (error) {
+    console.log(error);
     if (error.error) return res.send(error);
     return res.send(httpError("Failed to register, please try again"));
   }
@@ -70,29 +78,26 @@ exports.updateCompanyDetails = async (req, res) => {
     }
 
     if (req.files) {
+      const file = req.files.photo;
       const imageId = existingCompany.photo.id;
 
-      //delete photo on cloudinary
-      cloudinary.v2.uploader.destroy(imageId, null, (err, res) => {});
+      if (existingCompany.photo.id) {
+        console.log(1);
+        //delete photo on cloudinary
+        await cloudinary.v2.uploader.destroy(imageId);
+      }
 
       //uploading file to cloudinary
-      cloudinary.v2.uploader.upload(
-        file.tempFilePath,
-        {
-          folder: "users",
-          width: 150,
-          crop: "scale",
-        },
-        async (err, response) => {
-          if (err) {
-            throw httpError("Photo failed to upload");
-          }
-          req.body.photo = {
-            id: response.public_id,
-            url: response.secure_url,
-          };
-        }
-      );
+      const response = await cloudinary.v2.uploader.upload(file.tempFilePath, {
+        folder: "users",
+        width: 150,
+        crop: "scale",
+      });
+
+      req.body.photo = {
+        id: response.public_id,
+        url: response.secure_url,
+      };
     }
 
     await Company.findByIdAndUpdate(existingCompany._id, req.body);
@@ -102,6 +107,7 @@ exports.updateCompanyDetails = async (req, res) => {
       message: "Company details has been updated",
     });
   } catch (error) {
+    console.log(error);
     if (error.error) return res.send(error);
     return res.send(httpError("Failed to update, please try again"));
   }
@@ -121,16 +127,12 @@ exports.leaveCompany = async (req, res) => {
       );
     }
 
-    let lengthListOfEmployees = existingCompany.listOfEmployees.length;
-
-    existingCompany.listOfEmployees.filter(
-      (company) => company.userId.toString() !== existingCompany._id.toString()
-    );
-
-    if (lengthListOfEmployees === existingCompany.listOfEmployees.length) {
-      throw httpError(
-        "Cannot able to leave company as it was not founded in records"
-      );
+    for (let user of existingCompany.listOfEmployees) {
+      if (user.userId.toString() === req.user._id.toString()) {
+        user.status = "Worked";
+        user.endDate = new Date();
+        break;
+      }
     }
 
     for (let company of user.companies) {
@@ -169,13 +171,18 @@ exports.joinCompany = async (req, res) => {
       );
     }
 
-    for (let user of existingCompany.listOfEmployees) {
-      if (user.userId.toString() === user._id.toString()) {
-        throw httpError("User can only able to join one company at a time");
+    for (let company of user.companies) {
+      if (company.status === "working") {
+        throw httpError("User can only join one company at a time");
       }
     }
 
-    existingCompany.listOfEmployees.push({ userId: user._id });
+    existingCompany.listOfEmployees.push({
+      userId: user._id,
+      status: "working",
+      startDate: new Date(),
+      endDate: null,
+    });
     user.companies.push({
       companyId,
       status: "working",

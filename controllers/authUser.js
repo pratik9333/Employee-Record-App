@@ -25,7 +25,7 @@ exports.login = async (req, res) => {
       throw httpError("password is incorrect");
     }
 
-    const user = await User.find({ email: authUser.email });
+    await User.find({ email: authUser.email });
 
     getCookieToken(authUser, res);
   } catch (error) {
@@ -70,7 +70,7 @@ exports.signup = async (req, res) => {
           throw httpError("Photo failed to upload");
         }
         //creating user
-        const user = await User.create({
+        await User.create({
           name,
           email,
           phone,
@@ -95,7 +95,7 @@ exports.signup = async (req, res) => {
   }
 };
 
-exports.logout = async (res) => {
+exports.logout = async (req, res) => {
   const options = {
     expires: new Date(Date.now()),
     httpOnly: true,
