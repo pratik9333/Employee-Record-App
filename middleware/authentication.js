@@ -1,5 +1,6 @@
 const jsonwebtoken = require("jsonwebtoken");
-const User = require("../models/User.model");
+const User = require("../models/user");
+
 const { httpError } = require("../utils/functions/httpError");
 
 const isLoggedIn = async (req, res, next) => {

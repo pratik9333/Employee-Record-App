@@ -1,7 +1,7 @@
 const Auth = require("../models/auth");
 const cloudinary = require("cloudinary");
 const getCookieToken = require("../utils/functions/cookieToken");
-const { httpError } = require("../utils/functions/httpError");
+const httpError = require("../utils/functions/httpError");
 const User = require("../models/user");
 
 exports.login = async (req, res) => {
@@ -27,7 +27,7 @@ exports.login = async (req, res) => {
 
     const user = await User.find({ email: authUser.email });
 
-    getCookieToken(user, res, req);
+    getCookieToken(user, authUser, res);
   } catch (error) {
     console.log(error);
     if (error.error) return res.send(error);
@@ -58,29 +58,36 @@ exports.signup = async (req, res) => {
     const file = req.files.photo;
 
     //uploading file to cloudinary
-    const result = await cloudinary.v2.uploader.upload(file.tempFilePath, {
-      folder: "users",
-      width: 150,
-      crop: "scale",
-    });
-
-    await Auth.create({ email, password });
-
-    //creating user
-    const user = await User.create({
-      name,
-      email,
-      phone,
-      aadharNo,
-      address,
-      photo: {
-        id: result.public_id,
-        url: result.secure_url,
+    cloudinary.v2.uploader.upload(
+      file.tempFilePath,
+      {
+        folder: "users",
+        width: 150,
+        crop: "scale",
       },
-    });
+      async (err, response) => {
+        if (err) {
+          throw httpError("Photo failed to upload");
+        }
+        //creating user
+        const user = await User.create({
+          name,
+          email,
+          phone,
+          aadharNo,
+          address,
+          photo: {
+            id: response.public_id,
+            url: response.secure_url,
+          },
+        });
 
-    //this will create token, store in cookie and will send response to frontend
-    getCookieToken(user, res);
+        const auth = await Auth.create({ email, password });
+
+        //this will create token, store in cookie and will send response to frontend
+        getCookieToken(user, auth, res);
+      }
+    );
   } catch (error) {
     console.log(error);
     if (error.error) return res.send(error);

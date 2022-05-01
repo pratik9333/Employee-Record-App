@@ -22,7 +22,7 @@ app.use(
 );
 
 //import all routes here
-
+const authUser = require("./routes/authUser");
 //router middleware
-
+app.use("/api/v1/auth", authUser);
 module.exports = app;

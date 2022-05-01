@@ -1,5 +1,5 @@
-const getCookieToken = (user, res) => {
-  const token = user.getJwtToken();
+const getCookieToken = (user, auth, res) => {
+  const token = auth.getJwtToken();
 
   const options = {
     expires: new Date(
