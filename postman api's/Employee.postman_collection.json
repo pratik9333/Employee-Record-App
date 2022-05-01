@@ -1,0 +1,212 @@
+{
+	"info": {
+		"_postman_id": "670d2bd9-3c2f-4eb2-be72-33732ee50626",
+		"name": "Employee",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "addCompany",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "Micro",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "getMicro.com",
+							"type": "text"
+						},
+						{
+							"key": "contactNo",
+							"value": "937337373",
+							"type": "text"
+						},
+						{
+							"key": "location",
+							"value": "Benglaru",
+							"type": "text"
+						},
+						{
+							"key": "shortSummary",
+							"value": "ABC",
+							"type": "text"
+						},
+						{
+							"key": "photo",
+							"type": "file",
+							"src": "/Users/pratikaswani/Downloads/IMG-20220429-WA0004.jpg"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{DOMAIN}}/employee/company/register",
+					"host": [
+						"{{DOMAIN}}"
+					],
+					"path": [
+						"employee",
+						"company",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateCompanyDetails",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "Micros",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "getMicros.com",
+							"type": "text"
+						},
+						{
+							"key": "contactNo",
+							"value": "937337374",
+							"type": "text"
+						},
+						{
+							"key": "location",
+							"value": "Benglarus",
+							"type": "text"
+						},
+						{
+							"key": "shortSummary",
+							"value": "ABCD",
+							"type": "text"
+						},
+						{
+							"key": "photo",
+							"type": "file",
+							"src": "/Users/pratikaswani/Downloads/sd box.jpeg"
+						},
+						{
+							"key": "companyId",
+							"value": "626ec815020114269c6e4884",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{DOMAIN}}/employee/company/update",
+					"host": [
+						"{{DOMAIN}}"
+					],
+					"path": [
+						"employee",
+						"company",
+						"update"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "leaveCompany",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "companyId",
+							"value": "626f162f0ccd5bd18c32caea",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{DOMAIN}}/employee/company/leave",
+					"host": [
+						"{{DOMAIN}}"
+					],
+					"path": [
+						"employee",
+						"company",
+						"leave"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "joinCompany",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "companyId",
+							"value": "626f162f0ccd5bd18c32caea",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{DOMAIN}}/employee/company/join",
+					"host": [
+						"{{DOMAIN}}"
+					],
+					"path": [
+						"employee",
+						"company",
+						"join"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Dashboard",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "companyId",
+							"value": "626f162f0ccd5bd18c32caea",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "{{DOMAIN}}/employee/dashboard",
+					"host": [
+						"{{DOMAIN}}"
+					],
+					"path": [
+						"employee",
+						"dashboard"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

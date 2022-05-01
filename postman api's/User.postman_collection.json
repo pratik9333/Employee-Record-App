@@ -1,0 +1,56 @@
+{
+	"info": {
+		"_postman_id": "57d0a10d-8f86-47c5-a95a-ad8052442410",
+		"name": "User",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "getAllCompanies",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{DOMAIN}}/companies",
+					"host": [
+						"{{DOMAIN}}"
+					],
+					"path": [
+						"companies"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "viewCompany",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "companyId",
+							"value": "626f162f0ccd5bd18c32caea",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{DOMAIN}}/company",
+					"host": [
+						"{{DOMAIN}}"
+					],
+					"path": [
+						"company"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

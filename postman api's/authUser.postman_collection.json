@@ -1,0 +1,256 @@
+{
+	"info": {
+		"_postman_id": "1e3867c5-e4c7-4761-9b88-dadd485fa7f5",
+		"name": "authUser",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "signup",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "Pratik Aswani",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "pratikaswani81@gmail.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "Guddu@000",
+							"type": "text"
+						},
+						{
+							"key": "photo",
+							"type": "file",
+							"src": "/Users/pratikaswani/Downloads/sd box.jpeg"
+						},
+						{
+							"key": "aadharNo",
+							"value": "939393939393",
+							"type": "text"
+						},
+						{
+							"key": "address",
+							"value": "Dev kutir mumbai",
+							"type": "text"
+						},
+						{
+							"key": "phone",
+							"value": "882828282",
+							"type": "text"
+						},
+						{
+							"key": "role",
+							"value": "admin",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{DOMAIN}}/auth/signup",
+					"host": [
+						"{{DOMAIN}}"
+					],
+					"path": [
+						"auth",
+						"signup"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "Pratik Aswani",
+							"disabled": true
+						},
+						{
+							"key": "email",
+							"value": "pratikaswani9333@gmail.com",
+							"disabled": true
+						},
+						{
+							"key": "password",
+							"value": "Guddu@000",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "Pratik Aswani",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "email",
+							"value": "pratikaswani81@gmail.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "Guddu@000",
+							"type": "text"
+						},
+						{
+							"key": "photo",
+							"type": "file",
+							"src": "/Users/pratikaswani/Downloads/sd box.jpeg",
+							"disabled": true
+						},
+						{
+							"key": "aadharNo",
+							"value": "448781962421",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "address",
+							"value": "Dev kutir mumbai",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "phone",
+							"value": "9764989345",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "{{DOMAIN}}/auth/login",
+					"host": [
+						"{{DOMAIN}}"
+					],
+					"path": [
+						"auth",
+						"login"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "Pratik Aswani",
+							"disabled": true
+						},
+						{
+							"key": "email",
+							"value": "pratikaswani9333@gmail.com",
+							"disabled": true
+						},
+						{
+							"key": "password",
+							"value": "Guddu@000",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "logout",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "Pratik Aswani",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "email",
+							"value": "pratikaswani9333@gmail.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "Guddu@000",
+							"type": "text"
+						},
+						{
+							"key": "photo",
+							"type": "file",
+							"src": "/Users/pratikaswani/Downloads/sd box.jpeg",
+							"disabled": true
+						},
+						{
+							"key": "aadharNo",
+							"value": "448781962421",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "address",
+							"value": "Dev kutir mumbai",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "phone",
+							"value": "9764989345",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "https://employee-record-app.vercel.app/api/v1/companies",
+					"protocol": "https",
+					"host": [
+						"employee-record-app",
+						"vercel",
+						"app"
+					],
+					"path": [
+						"api",
+						"v1",
+						"companies"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "Pratik Aswani",
+							"disabled": true
+						},
+						{
+							"key": "email",
+							"value": "pratikaswani9333@gmail.com",
+							"disabled": true
+						},
+						{
+							"key": "password",
+							"value": "Guddu@000",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

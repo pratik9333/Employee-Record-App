@@ -1,0 +1,56 @@
+{
+	"info": {
+		"_postman_id": "a402fe21-fb50-4f60-a0ff-d0193e4378b7",
+		"name": "Admin",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "getAllCompanies",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{DOMAIN}}/companies/all",
+					"host": [
+						"{{DOMAIN}}"
+					],
+					"path": [
+						"companies",
+						"all"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "verifyCompanyStatus",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "companyId",
+							"value": "626f162f0ccd5bd18c32caea",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{DOMAIN}}/company/update/status",
+					"host": [
+						"{{DOMAIN}}"
+					],
+					"path": [
+						"company",
+						"update",
+						"status"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
