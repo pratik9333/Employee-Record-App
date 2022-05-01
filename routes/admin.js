@@ -9,6 +9,6 @@ const {
 router.route("/companies").get(isLoggedIn, getListOfAllCompanies);
 
 //view Company
-router.route("/company/update/status").get(isLoggedIn, updateCompanyStatus);
+router.route("/company/update/status").put(isLoggedIn, updateCompanyStatus);
 
 module.exports = router;
