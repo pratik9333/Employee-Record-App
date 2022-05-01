@@ -1,6 +1,6 @@
 const jsonwebtoken = require("jsonwebtoken");
 const Auth = require("../models/auth");
-
+const User = require("../models/user");
 const httpError = require("../utils/functions/httpError");
 
 const isLoggedIn = async (req, res, next) => {
@@ -16,8 +16,8 @@ const isLoggedIn = async (req, res, next) => {
     }
 
     const decoded = jsonwebtoken.verify(token, process.env.JWT_SECRET);
-
-    req.user = await Auth.findById(decoded.id);
+    const auth = await Auth.findById(decoded.id);
+    req.user = await User.findOne({ email: auth.email });
 
     req.user.password = undefined;
     req.user.__v = undefined;

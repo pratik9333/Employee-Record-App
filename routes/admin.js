@@ -5,6 +5,8 @@ const {
   getListOfAllCompanies,
 } = require("../controllers/admin");
 
+const isLoggedIn = require("../middleware/authentication");
+
 //get List Of All Companies
 router.route("/companies/all").get(isLoggedIn, getListOfAllCompanies);
 

@@ -1,6 +1,7 @@
 const Company = require("../models/company");
 const User = require("../models/user");
 const httpError = require("../utils/functions/httpError");
+const Query = require("../utils/functions/query");
 
 exports.getListOfCompanies = async (req, res) => {
   try {

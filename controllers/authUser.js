@@ -37,7 +37,7 @@ exports.login = async (req, res) => {
 
 exports.signup = async (req, res) => {
   const { name, email, phone, password, aadharNo, address } = req.body;
-
+  const role = req.body.role ? req.body.role : "employee";
   try {
     if (!req.files) {
       return res.status(400).json({ error: "Photo is required to signup" });
@@ -70,26 +70,33 @@ exports.signup = async (req, res) => {
           throw httpError("Photo failed to upload");
         }
         //creating user
-        await User.create({
-          name,
-          email,
-          phone,
-          aadharNo,
-          address,
-          photo: {
-            id: response.public_id,
-            url: response.secure_url,
-          },
-        });
+        try {
+          await User.create({
+            name,
+            email,
+            phone,
+            aadharNo,
+            address,
+            role,
+            photo: {
+              id: response.public_id,
+              url: response.secure_url,
+            },
+          });
 
-        const auth = await Auth.create({ email, password });
+          const auth = await Auth.create({ email, password });
 
-        //this will create token, store in cookie and will send response to frontend
-        getCookieToken(auth, res);
+          //this will create token, store in cookie and will send response to frontend
+          getCookieToken(auth, res);
+        } catch (error) {
+          return res.send(
+            httpError("User registration failed, please try again")
+          );
+        }
       }
     );
   } catch (error) {
-    console.log(error);
+    console.log("Error", error);
     if (error.error) return res.send(error);
     return res.send(httpError("User registration failed, please try again"));
   }

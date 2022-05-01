@@ -3,9 +3,14 @@ const httpError = require("../utils/functions/httpError");
 const User = require("../models/user");
 const Company = require("../models/company");
 const { sendMail } = require("../utils/functions/sendMail");
+const Query = require("../utils/functions/query");
 
 exports.getListOfAllCompanies = async (req, res) => {
   try {
+    console.log(req.user);
+    if (req.user.role !== "admin") {
+      throw httpError("Unauthorized access");
+    }
     const companiesCount = await Company.countDocuments();
     const resultPerPage = 6;
 
@@ -27,6 +32,7 @@ exports.getListOfAllCompanies = async (req, res) => {
       filteredCompanies: filteredCompanies,
     });
   } catch (error) {
+    console.log(error);
     if (error.error) return res.send(error);
     return res.send(httpError("Cannot able to fetch list of companies"));
   }
