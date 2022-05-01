@@ -58,6 +58,11 @@ exports.updateCompanyStatus = async () => {
     const mailBody = `<p>Hello ${user.name}, verification status for registering company <b>${existingCompany.name}</b> has been verified successfully and has been listed in website.</p>`;
 
     sendMail(user.email, mailBody, subject);
+
+    res.status(200).json({
+      success: true,
+      message: "Company has been verified successfully",
+    });
   } catch (error) {
     if (error.error) return res.send(error);
     return res.send(httpError("Cannot able to fetch list of companies"));

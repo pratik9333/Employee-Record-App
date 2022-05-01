@@ -1,6 +1,9 @@
 const router = require("express").Router();
 
-const { updateStatus, getListOfAllCompanies } = require("../controllers/admin");
+const {
+  updateCompanyStatus,
+  getListOfAllCompanies,
+} = require("../controllers/admin");
 
 //get List Of All Companies
 router.route("/companies").get(isLoggedIn, getListOfAllCompanies);
