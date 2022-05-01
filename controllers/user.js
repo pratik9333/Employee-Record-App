@@ -34,6 +34,7 @@ exports.getListOfCompanies = async (req, res) => {
 exports.viewCompany = async (req, res) => {
   try {
     const { companyId } = req.body;
+
     if (!companyId) {
       throw httpError("Please provide company ID");
     }
@@ -51,5 +52,8 @@ exports.viewCompany = async (req, res) => {
       success: true,
       existingCompany,
     });
-  } catch (error) {}
+  } catch (error) {
+    if (error.error) return res.send(error);
+    return res.send(httpError("Cannot able to fetch list of companies"));
+  }
 };
