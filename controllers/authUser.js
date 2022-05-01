@@ -27,7 +27,7 @@ exports.login = async (req, res) => {
 
     const user = await User.find({ email: authUser.email });
 
-    getCookieToken(user, authUser, res);
+    getCookieToken(authUser, res);
   } catch (error) {
     console.log(error);
     if (error.error) return res.send(error);
@@ -85,7 +85,7 @@ exports.signup = async (req, res) => {
         const auth = await Auth.create({ email, password });
 
         //this will create token, store in cookie and will send response to frontend
-        getCookieToken(user, auth, res);
+        getCookieToken(auth, res);
       }
     );
   } catch (error) {

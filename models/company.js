@@ -31,8 +31,10 @@ const companySchema = new mongoose.Schema({
   },
   listOfEmployees: [
     {
-      type: mongoose.Schema.ObjectId,
-      ref: "User",
+      userId: {
+        type: mongoose.Schema.ObjectId,
+        ref: "User",
+      },
     },
   ],
   photo: {

@@ -19,8 +19,8 @@ const userSchema = new mongoose.Schema({
   },
   role: {
     type: String,
-    default: "Employee",
-    enum: ["Employee", "Admin"],
+    default: "employee",
+    enum: ["employee", "admin"],
   },
   aadharNo: {
     type: Number,
@@ -32,11 +32,15 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  workedOnCompanies: [
+  companies: [
     {
       companyId: {
         type: mongoose.Schema.ObjectId,
         ref: "Company",
+      },
+      status: {
+        type: String,
+        enum: ["working", "worked"],
       },
       startDate: {
         type: Date,

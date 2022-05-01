@@ -1,4 +1,4 @@
-const getCookieToken = (user, auth, res) => {
+const getCookieToken = (auth, res) => {
   const token = auth.getJwtToken();
 
   const options = {
@@ -7,17 +7,11 @@ const getCookieToken = (user, auth, res) => {
     ),
   };
 
-  //restricting data to pass on frontend
-  user.password = undefined;
-  user.__v = undefined;
-  user.createdAt = undefined;
-
   res.cookie("token", token, options);
 
   res.status(200).json({
     success: true,
     token: token,
-    user,
   });
 };
 
