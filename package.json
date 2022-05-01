@@ -1,0 +1,24 @@
+{
+  "name": "employee-record-app",
+  "version": "1.0.0",
+  "description": "An app for employees of the world to track their employment history.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pratik9333/Employee-Record-App.git"
+  },
+  "keywords": [
+    "nodejs",
+    "expressjs",
+    "mongodb"
+  ],
+  "author": "Pratik",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pratik9333/Employee-Record-App/issues"
+  },
+  "homepage": "https://github.com/pratik9333/Employee-Record-App#readme"
+}
