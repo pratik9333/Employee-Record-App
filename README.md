@@ -9,9 +9,9 @@ After that if you have successfully install the app, you have to create the .env
 1. Cloudinary
 
 - For cloudinary, create a account there and fill the above details that can be get from user dashboard
-  CLOUD_NAME
-  API_KEY
-  API_SECRET
+  - CLOUD_NAME
+  - API_KEY
+  - API_SECRET
 
 2. Port
    - PORT
