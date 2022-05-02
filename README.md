@@ -2,9 +2,9 @@
 
 An app for employees of the world to track their employment history.
 
-You can clone the repo to your local machine and first have to install the packages using npm install
+You can clone the repo to your local machine and first have to install the packages using npm install.
 
-After that if you have successfully install the app, you have to create the .env file and include the following things,
+After that if you have successfully install the packages, you have to create the .env file and include the following things,
 
 1. Cloudinary
 
@@ -30,4 +30,11 @@ After that if you have successfully install the app, you have to create the .env
 6. Mail App Password
 
 - You have to create mail app password to send the email using your google account
+
   - MAIL_APP_PASSWORD
+
+- After the successfull setup, try to run the app using npm run dev or npm start.
+
+- If app runs successfully, you will see these following messages,
+  - App is running at port 4002
+  - DB is connected successfully!
