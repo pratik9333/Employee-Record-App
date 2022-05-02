@@ -7,6 +7,7 @@ You can clone the repo to your local machine and first have to install the packa
 After that if you have successfully install the packages, you have to create the .env file and include the following things,
 
 1. Cloudinary
+
 - For cloudinary, create a account there and fill the below details that can be get from user dashboard
 - Variables
   - CLOUD_NAME
@@ -42,4 +43,4 @@ After that if you have successfully install the packages, you have to create the
   - App is running at port eg - 4002
   - DB is connected successfully! 
 
-Hurrah! you have successfully set up the password, now you can test the endpoints using the given postman api docs. 
+Hurrah! you have successfully set up the application, now you can test the endpoints using the given postman api docs. 
