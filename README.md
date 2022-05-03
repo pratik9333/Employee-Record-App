@@ -5,6 +5,9 @@ An app for employees of the world to track their employment history.
 Server hosted on heroku 
 - url - https://employee-record-management-app.herokuapp.com/api/v1/companies
 
+Used miro for brainstorming the app flow
+- url - https://miro.com/app/board/uXjVO46sWZg=/
+
 You can clone the repo to your local machine and first have to install the packages using npm install.
 
 After that if you have successfully install the packages, you have to create the .env file and include the following things,
