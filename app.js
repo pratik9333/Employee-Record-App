@@ -33,7 +33,7 @@ app.use("/api/v1/employee", employee);
 app.use("/api/v1", user);
 app.use("/api/v1", admin);
 
-app.get("/api/v1", (req, res) => {
+app.get("/", (req, res) => {
   res.status(200).json({ message: "Greetings from our api" });
 });
 
