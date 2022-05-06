@@ -6,7 +6,6 @@ const Query = require("../utils/functions/query");
 
 exports.getListOfAllCompanies = async (req, res) => {
   try {
-    console.log(req.user);
     if (req.user.role !== "admin") {
       throw httpError("Unauthorized access");
     }
@@ -31,7 +30,6 @@ exports.getListOfAllCompanies = async (req, res) => {
       filteredCompanies: filteredCompanies,
     });
   } catch (error) {
-    console.log(error);
     if (error.error) return res.send(error);
     return res.send(httpError("Cannot able to fetch list of companies"));
   }
@@ -59,14 +57,14 @@ exports.updateCompanyStatus = async (req, res) => {
 
     user = await User.findById(user);
 
+    existingCompany.verified = true;
+
     user.companies.push({
       companyId: existingCompany._id,
       status: "working",
       startDate: new Date(),
       endDate: null,
     });
-
-    existingCompany.verified = true;
 
     await existingCompany.save();
     await user.save();
@@ -81,7 +79,6 @@ exports.updateCompanyStatus = async (req, res) => {
       message: "Company has been verified successfully",
     });
   } catch (error) {
-    console.log(error);
     if (error.error) return res.send(error);
     return res.send(httpError("Cannot able to verify status"));
   }

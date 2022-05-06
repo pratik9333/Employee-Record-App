@@ -13,7 +13,6 @@ app.use(cors());
 
 //cookies and file middleware
 app.use(cookieParser());
-
 app.use(
   fileUpload({
     useTempFiles: true,

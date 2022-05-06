@@ -11,6 +11,11 @@ const userSchema = new mongoose.Schema({
     required: [true, "Email is required"],
     unique: true,
   },
+  password: {
+    type: String,
+    required: true,
+    maxlength: [8, "Password should be atleast 8 characters"],
+  },
   phone: {
     type: Number,
     required: [true, "Phone is required"],

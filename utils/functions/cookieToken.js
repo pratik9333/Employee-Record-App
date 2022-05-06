@@ -1,5 +1,9 @@
-const getCookieToken = (auth, res) => {
-  const token = auth.getJwtToken();
+const jsonwebtoken = require("jsonwebtoken");
+
+const getCookieToken = (user, res) => {
+  const token = jsonwebtoken.sign({ id: user._id }, process.env.JWT_SECRET, {
+    expiresIn: process.env.JWT_EXPIRES,
+  });
 
   const options = {
     expires: new Date(

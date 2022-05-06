@@ -9,13 +9,13 @@ class Query {
       ? {
           name: {
             $regex: this.bigQ.search,
-            $options: "i",
+            $options: "i", // case insensitive
           },
         }
       : {};
 
     this.base = this.base.find({
-      ...searchword,
+      ...searchword, // spread object
     });
     return this;
   }

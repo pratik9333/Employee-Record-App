@@ -1,8 +1,8 @@
-const Auth = require("../models/auth");
 const cloudinary = require("cloudinary");
 const getCookieToken = require("../utils/functions/cookieToken");
 const httpError = require("../utils/functions/httpError");
 const User = require("../models/user");
+const bcrypt = require("bcryptjs");
 
 exports.login = async (req, res) => {
   const { email, password } = req.body;
@@ -12,22 +12,20 @@ exports.login = async (req, res) => {
   }
 
   try {
-    const authUser = await Auth.findOne({ email });
+    const user = await User.findOne({ email });
 
-    if (!authUser) {
+    if (!user) {
       throw httpError("email is incorrect");
     }
 
-    const validatePassword = await authUser.validatePassword(password);
-
-    //validating email and password
-    if (!validatePassword) {
-      throw httpError("password is incorrect");
-    }
-
-    await User.find({ email: authUser.email });
-
-    getCookieToken(authUser, res);
+    bcrypt.compare(password, user.password, async (err, success) => {
+      //validating email and password
+      if (success) {
+        getCookieToken(user, res);
+      } else {
+        throw httpError("password is incorrect");
+      }
+    });
   } catch (error) {
     console.log(error);
     if (error.error) return res.send(error);
@@ -71,23 +69,24 @@ exports.signup = async (req, res) => {
         }
         //creating user
         try {
-          await User.create({
+          // creating hash of our password and saving to db
+          password = await bcrypt.hash(password, 10);
+          const user = await User.create({
             name,
             email,
             phone,
             aadharNo,
             address,
             role,
+            password,
             photo: {
               id: response.public_id,
               url: response.secure_url,
             },
           });
 
-          const auth = await Auth.create({ email, password });
-
           //this will create token, store in cookie and will send response to frontend
-          getCookieToken(auth, res);
+          getCookieToken(user, res);
         } catch (error) {
           return res.send(
             httpError("User registration failed, please try again")
@@ -96,7 +95,7 @@ exports.signup = async (req, res) => {
       }
     );
   } catch (error) {
-    console.log("Error", error);
+    console.log(error);
     if (error.error) return res.send(error);
     return res.send(httpError("User registration failed, please try again"));
   }

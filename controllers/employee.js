@@ -19,6 +19,7 @@ exports.addCompany = async (req, res) => {
 
     if (req.files) {
       const file = req.files.photo;
+
       //uploading file to cloudinary
       const response = await cloudinary.v2.uploader.upload(file.tempFilePath, {
         folder: "company",
@@ -49,7 +50,6 @@ exports.addCompany = async (req, res) => {
         "Company will be registered after successfull verification and will be notified via mail",
     });
   } catch (error) {
-    console.log(error);
     if (error.error) return res.send(error);
     return res.send(httpError("Failed to register, please try again"));
   }
@@ -102,7 +102,6 @@ exports.updateCompanyDetails = async (req, res) => {
       message: "Company details has been updated",
     });
   } catch (error) {
-    console.log(error);
     if (error.error) return res.send(error);
     return res.send(httpError("Failed to update, please try again"));
   }
@@ -154,7 +153,6 @@ exports.leaveCompany = async (req, res) => {
       message: `${user.name} has successfully leaved ${existingCompany.name}!`,
     });
   } catch (error) {
-    console.log(error);
     if (error.error) return res.send(error);
     return res.send(httpError("Failed to leave company, please try again"));
   }
@@ -215,6 +213,8 @@ exports.employeeDashboard = async (req, res) => {
     });
   } catch (error) {
     if (error.error) return res.send(error);
-    return res.send(httpError("Failed to leave company, please try again"));
+    return res.send(
+      httpError("Failed to fetch user details, please try again")
+    );
   }
 };
