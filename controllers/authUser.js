@@ -45,7 +45,7 @@ exports.signup = async (req, res) => {
       throw httpError("All fields are required");
     }
 
-    const findExistingEmail = await Auth.findOne({ email });
+    const findExistingEmail = await User.findOne({ email });
 
     if (findExistingEmail) {
       throw httpError(
@@ -70,7 +70,7 @@ exports.signup = async (req, res) => {
         //creating user
         try {
           // creating hash of our password and saving to db
-          password = await bcrypt.hash(password, 10);
+          let hashedPassword = await bcrypt.hash(password, 10);
           const user = await User.create({
             name,
             email,
@@ -78,7 +78,7 @@ exports.signup = async (req, res) => {
             aadharNo,
             address,
             role,
-            password,
+            password: hashedPassword,
             photo: {
               id: response.public_id,
               url: response.secure_url,
@@ -88,6 +88,7 @@ exports.signup = async (req, res) => {
           //this will create token, store in cookie and will send response to frontend
           getCookieToken(user, res);
         } catch (error) {
+          console.log(error);
           return res.send(
             httpError("User registration failed, please try again")
           );
@@ -95,7 +96,6 @@ exports.signup = async (req, res) => {
       }
     );
   } catch (error) {
-    console.log(error);
     if (error.error) return res.send(error);
     return res.send(httpError("User registration failed, please try again"));
   }

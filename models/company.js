@@ -21,6 +21,7 @@ const companySchema = new mongoose.Schema({
     required: true,
   },
   website: {
+    required: true,
     type: String,
     unique: true,
   },
